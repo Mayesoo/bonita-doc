@@ -4679,3 +4679,65 @@ Specify the next execution date of a timer event trigger.
     }
     ```
 
+### Message
+
+#### Description
+
+Use this resource to send BPM message events.
+Message events are caught by processes using `catch message event` flow nodes (Start, intermediate, boundary or receive tasks).
+
+
+#### Methods
+
+The methods used for this resource is:
+
+* POST - Send a message
+
+#### Send a message event
+
+* **URL**  
+  `/API/bpm/message/`  
+* **Method**  
+  `POST`
+* **Request Payload**  
+  ```json
+  {
+    "messageName" : "myMessage" ,
+    "targetProcess": "processName",
+    "targetFlowNode": "catchMessageFlowNodeName",
+    "messageContent" : {
+         // exhaustive list of supported type in data values
+        "data1" : {
+            "value" : "aValue"
+         },
+        "data2" : {
+            "value" : 42,
+            "type" : "java.lang.Long" //Optional
+        },
+        ...
+    },
+    "correlations" : {
+        "key1" : {
+            "value" : "aValue"
+        },
+        "key2" : {
+            "value" : 123,
+            "type" : "java.lang.Integer" //Optional
+        },
+        ... // 5 keys max
+    }
+  }
+  ```
+  _Supported value types in message content and correlations_ :  
+  * java.lang.String
+  * java.lang.Boolean
+  * java.lang.Integer
+  * java.lang.Double
+  * java.lang.Float
+  * java.lang.Long
+  * java.util.Date
+  * java.time.LocalDate
+  * java.time.LocalDateTime
+  * java.time.OffsetDateTime  
+* **Success Response**  
+  * **Code**: 204
